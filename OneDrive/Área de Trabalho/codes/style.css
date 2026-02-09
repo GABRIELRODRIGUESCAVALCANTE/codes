@@ -1,0 +1,175 @@
+/* style.css */
+
+/* 1. Variáveis de Cores (Manual de Identidade Visual) */
+:root {
+    --cor-verde-inst: rgb(0, 130, 65);    
+    --cor-amarelo-inst: rgb(255, 200, 5);
+    --cor-verde-claro: #26a737; 
+    --cor-cinza-fundo: #f0f2f5; 
+    --cor-branco: #ffffff;
+    --cor-texto: #333333;
+}
+
+/* 2. Reset Básico */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-cinza-fundo);
+    margin: 0;
+    padding: 0;
+}
+
+/* 3. Estrutura do Grid (Layout Principal) */
+.parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 15px; /* Aumentei um pouco para separar melhor as áreas */
+    height: 100vh;
+    padding: 10px; /* Um pouco de margem na borda da tela */
+    box-sizing: border-box; /* Garante que o padding não estoure a tela */
+}
+
+/* Estilo base (Reduzido para não conflitar) */
+.parent > div {
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 4. Áreas Específicas */
+
+/* --- CABEÇALHO (.div1) --- */
+.div1 {
+    grid-column: span 5 / span 5;
+    background-color: var(--cor-verde-inst);
+    color: var(--cor-branco);
+    border-bottom: 5px solid var(--cor-amarelo-inst);
+    
+    /* Centralizar o título */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* --- LATERAL / FILTROS (.div2) --- */
+.div2 {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+    
+    background-color: var(--cor-branco);
+    
+    /* Centralização total */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Sombra suave e difusa (Modern Shadow) */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-radius: 8px;
+    
+    /* Um detalhe sutil de borda no topo para marcar a área */
+    border-top: 4px solid var(--cor-verde-inst);
+}
+
+/* Container que segura o ícone e o texto */
+.brand-wrapper {
+    display: flex;
+    align-items: center; /* Alinha o quadrado com o texto verticalmente */
+    gap: 15px; /* Distância entre o quadrado e o texto */
+}
+
+/* O Elemento Gráfico (Quadrado Tech) */
+.brand-symbol {
+    width: 12px;
+    height: 50px; /* Altura que acompanha o texto */
+    background-color: var(--cor-amarelo-inst); /* Amarelo Institucional */
+    border-radius: 2px;
+}
+
+/* Bloco de Texto */
+.brand-text {
+    display: flex;
+    flex-direction: column; /* Um texto em cima do outro */
+    justify-content: center;
+}
+
+/* A palavra "Conecta" (Impacto) */
+.text-primary {
+    font-size: 2.5rem; /* Tamanho bem grande */
+    font-weight: 800; /* Extra Bold - Muito grosso */
+    color: var(--cor-verde-inst); /* Verde Oficial */
+    line-height: 0.9; /* Aperta um pouco a altura para ficar compacto */
+    letter-spacing: -1px; /* Letras levemente juntas (Estilo Tech) */
+}
+
+/* A frase "Defesa Social" (Legibilidade e Classe) */
+.text-secondary {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666; /* Cinza escuro para não brigar com o verde */
+    text-transform: uppercase; /* Caixa alta */
+    letter-spacing: 2px; /* Espaçamento largo entre letras (Elegância) */
+    margin-top: 3px;
+}
+/* --- CONTEÚDO PRINCIPAL / SERVIÇOS (.div3) --- */
+.div3 {
+    grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    background-color: var(--cor-branco);
+    color: var(--cor-texto);
+    
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+}
+
+.div3 h2 {
+    color: var(--cor-verde-inst);
+    border-bottom: 2px solid var(--cor-amarelo-inst);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* --- ESTILO DOS CARDS (Onde estão os botões agora) --- */
+.grid-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+    gap: 20px;
+    width: 100%;
+}
+
+.card-servico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    
+    text-decoration: none;
+    color: var(--cor-verde-inst);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-bottom: 4px solid var(--cor-verde-inst);
+}
+
+.card-servico .icone {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Efeito Hover nos Cards */
+.card-servico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 130, 65, 0.2);
+    background-color: var(--cor-branco);
+    border-bottom-color: var(--cor-amarelo-inst);
+}
