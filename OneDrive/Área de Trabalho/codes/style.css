@@ -1,6 +1,3 @@
-/* style.css */
-
-/* 1. Variáveis de Cores (Manual de Identidade Visual) */
 :root {
     --cor-verde-inst: rgb(0, 130, 65);    
     --cor-amarelo-inst: rgb(255, 200, 5);
@@ -23,13 +20,13 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    gap: 15px; /* Aumentei um pouco para separar melhor as áreas */
+    gap: 15px;
     height: 100vh;
-    padding: 10px; /* Um pouco de margem na borda da tela */
-    box-sizing: border-box; /* Garante que o padding não estoure a tela */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-/* Estilo base (Reduzido para não conflitar) */
+/* Estilo base para divs genéricas */
 .parent > div {
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -37,19 +34,45 @@ body {
 
 /* 4. Áreas Específicas */
 
-/* --- CABEÇALHO (.div1) --- */
-.div1 {
+/* --- NOVO: CONTAINER DO CABEÇALHO --- */
+/* Este bloco segura a Div1 e a Logo juntas no topo */
+.header-container {
     grid-column: span 5 / span 5;
+    
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    overflow: hidden; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* --- CABEÇALHO (Parte Verde com Texto) --- */
+.div1 {
     background-color: var(--cor-verde-inst);
     color: var(--cor-branco);
-    border-bottom: 5px solid var(--cor-amarelo-inst);
     
-    /* Centralizar o título */
+    /* Centraliza o texto */
     display: flex;
-    align-items: center;
+    align-items: center; 
     justify-content: center;
+    
+    padding: 20px 0; /* Espaço para o texto respirar */
+    
     font-size: 1.5rem;
     font-weight: bold;
+    /* Removemos grid-column e position daqui */
+}
+
+.div1 h1 {
+    margin: 0;
+}
+
+/* --- A BARRA DE LOGO (SVG) --- */
+.logo {
+    width: 100%;
+    line-height: 0;   /* Remove espaços fantasmas */
+    display: block;
+    margin-top: -1px; /* Truque para garantir que não fica linha branca entre eles */
 }
 
 /* --- LATERAL / FILTROS (.div2) --- */
@@ -60,59 +83,65 @@ body {
     
     background-color: var(--cor-branco);
     
-    /* Centralização total */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 12px;
     
-    /* Sombra suave e difusa (Modern Shadow) */
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     border-radius: 8px;
-    
-    /* Um detalhe sutil de borda no topo para marcar a área */
     border-top: 4px solid var(--cor-verde-inst);
 }
 
 /* Container que segura o ícone e o texto */
 .brand-wrapper {
     display: flex;
-    align-items: center; /* Alinha o quadrado com o texto verticalmente */
-    gap: 15px; /* Distância entre o quadrado e o texto */
+    align-items: center;
+    gap: 15px;
 }
 
 /* O Elemento Gráfico (Quadrado Tech) */
 .brand-symbol {
     width: 12px;
-    height: 50px; /* Altura que acompanha o texto */
-    background-color: var(--cor-amarelo-inst); /* Amarelo Institucional */
+    height: 50px;
+    background-color: var(--cor-amarelo-inst);
     border-radius: 2px;
 }
 
 /* Bloco de Texto */
 .brand-text {
     display: flex;
-    flex-direction: column; /* Um texto em cima do outro */
+    flex-direction: column;
     justify-content: center;
+    gap: 8px;
 }
 
-/* A palavra "Conecta" (Impacto) */
 .text-primary {
-    font-size: 2.5rem; /* Tamanho bem grande */
-    font-weight: 800; /* Extra Bold - Muito grosso */
-    color: var(--cor-verde-inst); /* Verde Oficial */
-    line-height: 0.9; /* Aperta um pouco a altura para ficar compacto */
-    letter-spacing: -1px; /* Letras levemente juntas (Estilo Tech) */
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--cor-verde-inst);
+    line-height: 0.9;
+    letter-spacing: -1px;
 }
 
-/* A frase "Defesa Social" (Legibilidade e Classe) */
 .text-secondary {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #666; /* Cinza escuro para não brigar com o verde */
-    text-transform: uppercase; /* Caixa alta */
-    letter-spacing: 2px; /* Espaçamento largo entre letras (Elegância) */
-    margin-top: 3px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
 }
+
+.acessibilidade {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 20px;
+}
+
 /* --- CONTEÚDO PRINCIPAL / SERVIÇOS (.div3) --- */
 .div3 {
     grid-column: span 3 / span 3;
@@ -135,7 +164,7 @@ body {
     margin-top: 0;
 }
 
-/* --- ESTILO DOS CARDS (Onde estão os botões agora) --- */
+/* --- ESTILO DOS CARDS --- */
 .grid-servicos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
@@ -164,12 +193,114 @@ body {
 .card-servico .icone {
     font-size: 2rem;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Efeito Hover nos Cards */
+/* Ícone SVG herda cor atual */
+.card-servico .icone svg {
+    fill: currentColor; 
+}
+
 .card-servico:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 130, 65, 0.2);
     background-color: var(--cor-branco);
     border-bottom-color: var(--cor-amarelo-inst);
+}
+.footer {
+    grid-column: span 5 / span 5;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+.modal-overlay {
+    display: none; /* Começa escondido! */
+    position: fixed; 
+    z-index: 2000; /* Fica na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Preto transparente */
+    
+    /* Centraliza a caixa branca no meio da tela */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px); /* Desfoque bonito no fundo */
+}
+
+/* A Caixa Branca (Conteúdo) */
+.modal-content {
+    background-color: var(--cor-branco);
+    width: 90%;
+    max-width: 600px; /* Largura máxima */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    overflow: hidden; /* Para o cabeçalho não sair das bordas */
+    animation: aparecer 0.3s ease; /* Efeito de entrada */
+}
+
+/* Animação suave */
+@keyframes aparecer {
+    from {transform: translateY(-20px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+    background-color: var(--cor-verde-inst);
+    color: var(--cor-branco);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--cor-amarelo-inst);
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+/* Botão de Fechar (X) */
+.close-btn {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: var(--cor-amarelo-inst);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* --- ESTILO DA TABELA DE MEMBROS --- */
+.tabela-membros {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-membros th, .tabela-membros td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabela-membros th {
+    background-color: #f2f2f2;
+    color: var(--cor-verde-inst);
+    font-weight: bold;
+}
+
+/* Efeito Zebrado na tabela */
+.tabela-membros tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-membros tr:hover {
+    background-color: #f1f1f1;
 }
