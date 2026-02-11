@@ -13,7 +13,6 @@
     <div class="parent">
     
         <div class="header-container">
-            
             <div class="div1">
                 <h1>CEARÁ - GOVERNO DO ESTADO</h1>
             </div>
@@ -28,13 +27,11 @@
                     <g id="c"><path d="m0,0v15.91L567.76,0H0Z" style="fill:url(#d);"/><path d="m512.05,0l567.19,15.91V0h-567.19Z" style="fill:url(#e);"/></g>
                 </svg>
             </div>
-            
         </div>
 
         <div class="div2">
             <div class="brand-wrapper">
                 <div class="brand-symbol"></div>
-
                 <div class="brand-text">
                     <span class="text-primary">Conecta</span>
                     <span class="text-secondary">Defesa Social</span>
@@ -71,59 +68,86 @@
                     <span>Enviar ata</span>
                 </a>
 
-                <a href="#" class="card-servico">
+                <a href="#" class="card-servico" onclick="abrirSolicitacao(); return false;">
                     <div class="icone">📞</div>
                     <span>Nova solicitação</span>
                 </a>
             </div>
         </div>
-    </div>
+    </div> 
 
-        <div id="modalMembros" class="modal-overlay">
+    <div id="nova-solicitacao" class="modal-overlay">
         <div class="modal-content">
-        <div class="modal-header">
-            <h3>Membros do Conselho</h3>
-            <span class="close-btn" onclick="fecharModal()">&times;</span>
-        </div>
-        
-        <div class="modal-body">
-            <table class="tabela-membros">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Cargo / Função</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>João da Silva</td>
-                        <td>Presidente</td>
-                    </tr>
-                    <tr>
-                        <td>Maria Oliveira</td>
-                        <td>Secretária Geral</td>
-                    </tr>
-                    <tr>
-                        <td>Carlos Santos</td>
-                        <td>Tesoureiro</td>
-                    </tr>
-                    <tr>
-                        <td>Ana Costa</td>
-                        <td>Conselheira</td>
-                    </tr>
-                     <tr>
-                        <td>Pedro Alves</td>
-                        <td>Suplente</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="modal-header">
+                <h3>Nova Solicitação</h3>
+                <span class="close-btn" onclick="fecharSolicitacao()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="solicitação">
+                        <label>Nome do solicitante</label><br>
+                        <input type="text" placeholder="Digite seu nome">
+                    </div>
+                    <div class="solicitação">
+                        <label>Data de Nascimento</label><br>
+                        <input type="date">
+                    </div>
+                    <div class="solicitação">
+                        <label>Assunto</label><br>
+                        <input type="text" placeholder="Digite o assunto">
+                    </div>
+                    <div class="solicitação">
+                        <label>Descrição</label><br>
+                        <textarea placeholder="Descreva sua solicitação"></textarea>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button class="botao-mais-membros">Enviar Solicitação</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-     <div class="footer">
-        <span>© 2024 Governo do Ceará - Todos os direitos reservados.</span>
 
-     </div>
-<script src="script.js"></script>
+    <div id="modalMembros" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Membros do Conselho</h3>
+                <span class="close-btn" onclick="fecharModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <table class="tabela-membros">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cargo / Função</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>João da Silva</td><td>Presidente</td></tr>
+                        <tr><td>Maria Oliveira</td><td>Secretária Geral</td></tr>
+                        <tr><td>Carlos Santos</td><td>Tesoureiro</td></tr>
+                        <tr><td>Ana Costa</td><td>Conselheira</td></tr>
+                        <tr><td>Pedro Alves</td><td>Suplente</td></tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="botao-mais-membros" onclick="carregarMaisMembros()">Carregar mais membros</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+    <div class="footer">
+        <span>© 2024 Governo do Ceará - Todos os direitos reservados.</span>
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
 </html>

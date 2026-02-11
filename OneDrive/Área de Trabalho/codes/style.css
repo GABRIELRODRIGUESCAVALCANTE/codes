@@ -118,7 +118,7 @@ body {
 }
 
 .text-primary {
-    font-size: 2.5rem;
+    font-size: 3.0rem;
     font-weight: 800;
     color: var(--cor-verde-inst);
     line-height: 0.9;
@@ -126,7 +126,7 @@ body {
 }
 
 .text-secondary {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #666;
     text-transform: uppercase;
@@ -241,6 +241,7 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     overflow: hidden; /* Para o cabeçalho não sair das bordas */
     animation: aparecer 0.3s ease; /* Efeito de entrada */
+    
 }
 
 /* Animação suave */
@@ -257,9 +258,25 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 4px solid var(--cor-amarelo-inst);
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right, var(--cor-verde-inst), var(--cor-amarelo-inst));
+    border-image-slice: 1;
 }
-
+.botao-mais-membros {
+    background: linear-gradient(to right, #e4a500, #c48b00);
+    border: none;
+    color: var(--cor-branco);
+    padding: 12px 24px;       /* Ajustei o padding lateral para ficar mais botão */
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.botao-mais-membros:hover {
+    transform: translateY(-2px); /* Sobe um pouquinho */
+    box-shadow: 0 4px 8px rgba(196, 139, 0, 0.4); /* Sombra amarelada */
+    background: linear-gradient(to right, #d19500, #b07d00);
+}
 .modal-header h3 {
     margin: 0;
 }
@@ -303,4 +320,43 @@ body {
 
 .tabela-membros tr:hover {
     background-color: #f1f1f1;
+}
+.solocitação {
+    border: 1px solid #e0e0e0; 
+    border-radius: 6px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    align-content:center;
+    box-shadow: 0 6px 8px rgba(97, 230, 104, 0.1);
+}
+.solicitação label {
+    font-weight: 600;
+    color: black
+}
+.solicitação input, .solicitação textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-sizing: border-box;
+    }
+
+
+.solicitação input, 
+.solicitação textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc; 
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.solicitação input:focus, 
+.solicitação textarea:focus {
+    outline: none;
+    border-color: var(--cor-verde-inst);
+    box-shadow: 0 0 8px rgba(0, 130, 65, 0.3);
 }
