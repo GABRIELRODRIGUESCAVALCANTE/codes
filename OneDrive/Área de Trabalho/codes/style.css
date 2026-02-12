@@ -294,6 +294,15 @@ body {
 .modal-body {
     padding: 20px;
 }
+.tabela-scroll {
+    /* Define a altura máxima da lista */
+    max-height: 250px; 
+    /* Se passar da altura, cria a barra de rolagem vertical */
+    overflow-y: auto; 
+    /* Borda suave para delimitar a área */
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
 
 /* --- ESTILO DA TABELA DE MEMBROS --- */
 .tabela-membros {
@@ -308,9 +317,37 @@ body {
 }
 
 .tabela-membros th {
-    background-color: #f2f2f2;
-    color: var(--cor-verde-inst);
-    font-weight: bold;
+    position: sticky;
+    top: 0;
+    
+    /* O SEGREDO: Fundo sólido para tapar o texto que sobe */
+    background-color: #f2f2f2; /* Cinza claro (ou usa var(--cor-branco) se preferires) */
+    
+    /* Garante que o cabeçalho fica na camada de cima */
+    z-index: 10; 
+    
+    /* Sombra suave para separar o cabeçalho da lista */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.tabela-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* O fundo por onde a barra corre */
+.tabela-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+/* A barra em si (o "polegar") */
+.tabela-scroll::-webkit-scrollbar-thumb {
+    background: #ccc; /* Cor cinza padrão */
+    border-radius: 4px;
+}
+
+/* Quando passa o mouse na barra */
+.tabela-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-verde-inst); /* Fica VERDE ao interagir */
 }
 
 /* Efeito Zebrado na tabela */
@@ -333,15 +370,6 @@ body {
     font-weight: 600;
     color: black
 }
-.solicitação input, .solicitação textarea {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 15px;
-        box-sizing: border-box;
-    }
-
 
 .solicitação input, 
 .solicitação textarea {
@@ -349,7 +377,7 @@ body {
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc; 
-    border-radius: 6px;
+    border-radius: 15px;
     box-sizing: border-box;
     font-family: inherit;
     transition: border-color 0.5s ease, box-shadow 0.5s ease;

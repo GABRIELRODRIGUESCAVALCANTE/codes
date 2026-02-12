@@ -115,27 +115,31 @@
                 <h3>Membros do Conselho</h3>
                 <span class="close-btn" onclick="fecharModal()">&times;</span>
             </div>
-            
-            <div class="modal-body">
-                <table class="tabela-membros">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cargo / Função</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>João da Silva</td><td>Presidente</td></tr>
-                        <tr><td>Maria Oliveira</td><td>Secretária Geral</td></tr>
-                        <tr><td>Carlos Santos</td><td>Tesoureiro</td></tr>
-                        <tr><td>Ana Costa</td><td>Conselheira</td></tr>
-                        <tr><td>Pedro Alves</td><td>Suplente</td></tr>
-                    </tbody>
-                </table>
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="botao-mais-membros" onclick="carregarMaisMembros()">Carregar mais membros</button>
-                </div>
-            </div>
+    <div class="modal-body">
+        <div class="tabela-scroll">
+            <table class="tabela-membros">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cargo / Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>João da Silva</td><td>Presidente</td></tr>
+                    <tr><td>Maria Oliveira</td><td>Secretária Geral</td></tr>
+                    <tr><td>Carlos Santos</td><td>Tesoureiro</td></tr>
+                    <tr><td>Ana Costa</td><td>Conselheira</td></tr>
+                    <tr><td>Pedro Alves</td><td>Suplente</td></tr>
+                    <tr><td>Membro Extra 1</td><td>Assessor</td></tr>
+                    <tr><td>Membro Extra 2</td><td>Apoio</td></tr>
+                    <tr><td>Membro Extra 3</td><td>Estagiário</td></tr>
+                </tbody>
+            </table>
+        </div> <div style="text-align: center; margin-top: 20px;">
+            <button class="botao-mais-membros">Carregar mais membros +</button>
+        </div>
+    </div>
+           
         </div>
     </div>
 
