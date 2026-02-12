@@ -19,7 +19,8 @@ body {
 .parent {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: min-content repeat(4, 1fr); 
+    
     gap: 15px;
     height: 100vh;
     padding: 10px;
@@ -37,30 +38,25 @@ body {
 /* --- NOVO: CONTAINER DO CABEÇALHO --- */
 /* Este bloco segura a Div1 e a Logo juntas no topo */
 .header-container {
-    grid-column: span 5 / span 5;
-    
+  grid-column: span 5 / span 5;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Coloca um filho em cima do outro */
+    justify-content: flex-start; /* Empurra um para o topo, outro para baixo */
     border-radius: 6px;
     overflow: hidden; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: var(--cor-verde-inst); /* Fundo de segurança */
 }
 
 /* --- CABEÇALHO (Parte Verde com Texto) --- */
 .div1 {
-    background-color: var(--cor-verde-inst);
-    color: var(--cor-branco);
-    
-    /* Centraliza o texto */
+ background-color: var(--cor-verde-inst);
     display: flex;
     align-items: center; 
     justify-content: center;
-    
-    padding: 20px 0; /* Espaço para o texto respirar */
-    
-    font-size: 1.5rem;
-    font-weight: bold;
-    /* Removemos grid-column e position daqui */
+    flex: 0 0 auto; 
+    padding: 15px 0 10px 0; 
+    width: 100%;
 }
 
 .div1 h1 {
@@ -70,9 +66,16 @@ body {
 /* --- A BARRA DE LOGO (SVG) --- */
 .logo {
     width: 100%;
-    line-height: 0;   /* Remove espaços fantasmas */
-    display: block;
-    margin-top: -1px; /* Truque para garantir que não fica linha branca entre eles */
+    line-height: 0;
+    display: block; 
+    margin: 0 auto;
+    font-size: 0;
+}
+/* --- CONTROLE DA IMAGEM DA LOGO --- */
+.logo-sspds {
+    max-height: 70px; /* Tamanho controlado */
+    width: auto;
+    max-width: 90%;
 }
 
 /* --- LATERAL / FILTROS (.div2) --- */
@@ -80,18 +83,25 @@ body {
     grid-column: span 2 / span 2;
     grid-row: span 4 / span 4;
     grid-row-start: 2;
-    
     background-color: var(--cor-branco);
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 12px;
-    
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     border-radius: 8px;
     border-top: 4px solid var(--cor-verde-inst);
+}
+.div2 .acessibilidade {
+    width: 100%; /* Força a largura total */
+    box-sizing: border-box;
+}
+
+/* 2. Garante que o botão (link) estique dentro do container */
+.div2 .card-servico {
+    width: 40%; /* Estica o botão */
+    box-sizing: border-box; /* padding não estraga o tamanho */
 }
 
 /* Container que segura o ícone e o texto */
@@ -358,6 +368,39 @@ body {
 .tabela-membros tr:hover {
     background-color: #f1f1f1;
 }
+/* 1. A Caixa geral (Onde fica o nome do arquivo) */
+.input-arquivo {
+    width: 100%;
+    padding: 8px; /* Espaço interno */
+    margin-top: 5px;
+    background-color: #f8f9fa; /* Fundo cinza claro igual aos outros inputs */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+}
+
+/* 2. O Botão Interno ("Escolher arquivo") */
+.input-arquivo::file-selector-button {
+    background-color: var(--cor-verde-inst); /* Verde do Governo */
+    color: white;
+    
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 15px; /* Afasta o texto do nome do arquivo */
+    
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 3. Efeito Hover no Botão Interno */
+.input-arquivo::file-selector-button:hover {
+    background-color: var(--cor-verde-claro); /* Fica amarelo ao passar o mouse */
+    color: var(--cor-branco);
+}
 .solocitação {
     border: 1px solid #e0e0e0; 
     border-radius: 6px;
@@ -387,4 +430,61 @@ body {
     outline: none;
     border-color: var(--cor-verde-inst);
     box-shadow: 0 0 8px rgba(0, 130, 65, 0.3);
+}
+/* --- ESTILO DO SELECT (Para ficar igual ao Input) --- */
+.solicitação select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px; /* Mesmo arredondamento dos inputs */
+    box-sizing: border-box;
+    font-family: inherit;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.solicitação select:focus {
+    outline: none;
+    border-color: var(--cor-verde-inst);
+    box-shadow: 0 0 8px rgba(0, 130, 65, 0.3);
+}
+
+/* --- GRID DO FORMULÁRIO (2 Colunas) --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+    gap: 15px; /* Espaço entre os campos */
+}
+
+/* Classe para campos que devem ocupar a linha inteira (ex: Nome, Endereço) */
+.full-width {
+    grid-column: span 2; /* Ocupa as 2 colunas */
+}
+
+/* --- TÍTULOS DAS SEÇÕES --- */
+.titulo-secao {
+    color: var(--cor-verde-inst);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* --- BARRA DE ROLAGEM DENTRO DO MODAL --- */
+.scroll-form {
+    max-height: 70vh; /* Altura máxima de 70% da tela */
+    overflow-y: auto; /* Adiciona barra de rolagem se passar disso */
+    padding-right: 10px; /* Espaço para a barra não colar no input */
+}
+
+/* Responsividade para Celular (Vira 1 coluna só) */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Uma coluna apenas */
+    }
+    .full-width {
+        grid-column: span 1;
+    }
 }
