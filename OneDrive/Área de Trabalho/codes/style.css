@@ -17,9 +17,12 @@ body {
 
 /* 3. Estrutura do Grid (Layout Principal) */
 .parent {
-    display: grid;
+  display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: min-content repeat(4, 1fr); 
+    
+    /* --- MUDANÇA AQUI --- */
+    /* Use 'auto' na primeira linha. Isso faz ela encolher até caber o conteúdo. */
+    grid-template-rows: auto repeat(4, 1fr); 
     
     gap: 15px;
     height: 100vh;
@@ -38,23 +41,34 @@ body {
 /* --- NOVO: CONTAINER DO CABEÇALHO --- */
 /* Este bloco segura a Div1 e a Logo juntas no topo */
 .header-container {
-  grid-column: span 5 / span 5;
+    grid-column: span 5 / span 5;
+    
     display: flex;
-    flex-direction: column; /* Coloca um filho em cima do outro */
-    justify-content: flex-start; /* Empurra um para o topo, outro para baixo */
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    
     border-radius: 6px;
     overflow: hidden; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    background-color: var(--cor-verde-inst); /* Fundo de segurança */
+    
+    /* MUDANÇA: Se quiseres remover a sombra cinza de baixo, apaga a linha do box-shadow ou coloca 'none' */
+    box-shadow: none; 
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); <--- ESTA ERA A SOMBRA ANTIGA */
+    
+    background-color: white; 
 }
 
 /* --- CABEÇALHO (Parte Verde com Texto) --- */
 .div1 {
- background-color: var(--cor-verde-inst);
+    background-color: var(--cor-verde-inst);
     display: flex;
     align-items: center; 
     justify-content: center;
-    flex: 0 0 auto; 
+    
+    /* --- IMPORTANTE --- */
+    flex: 0 0 auto; /* Impede de crescer */
+    height: auto;   /* Altura automática */
+    
     padding: 15px 0 10px 0; 
     width: 100%;
 }
@@ -65,11 +79,24 @@ body {
 
 /* --- A BARRA DE LOGO (SVG) --- */
 .logo {
-    width: 100%;
+   width: 100%;
+    display: block;
     line-height: 0;
-    display: block; 
-    margin: 0 auto;
-    font-size: 0;
+    
+    /* MUDANÇA AQUI: Adicione estas 3 linhas */
+    margin-top: -1px;    /* Já tinhas este (cola em cima) */
+    margin-bottom: -1px; /* NOVO: Cola em baixo (remove linha do fundo) */
+    vertical-align: bottom; /* NOVO: Remove o espaço "fantasma" de imagens */
+    
+    flex-shrink: 0;
+}
+
+/* ADICIONA ISTO PARA GARANTIR QUE O DESENHO APARECE */
+.logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    min-height: 15px; /* Força uma altura mínima caso ele esteja a tentar sumir */
 }
 /* --- CONTROLE DA IMAGEM DA LOGO --- */
 .logo-sspds {
@@ -100,8 +127,12 @@ body {
 
 /* 2. Garante que o botão (link) estique dentro do container */
 .div2 .card-servico {
-    width: 40%; /* Estica o botão */
-    box-sizing: border-box; /* padding não estraga o tamanho */
+    width: 40%; /* Mude de 40% para 100% para encher a caixa */
+    box-sizing: border-box;
+    /* Adicione isto para garantir que o texto não quebre feio */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Container que segura o ícone e o texto */
