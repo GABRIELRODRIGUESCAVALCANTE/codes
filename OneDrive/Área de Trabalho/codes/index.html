@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout Governo do Ceará</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS EXTRA PARA AS ETIQUETAS DE STATUS */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+        .badge-pendente { background-color: #e74c3c; }      /* Vermelho */
+        .badge-andamento { background-color: #f39c12; }     /* Laranja */
+        .badge-concluido { background-color: #27ae60; }     /* Verde */
+    </style>
 </head>
 
 <body>
@@ -78,21 +92,22 @@
             <div class="grid-servicos">
                 <a href="#" class="card-servico" onclick="abrirModal(); return false;">
                     <div class="icone">🔍</div>
-                    <span>Ver membros</span>
+                    <span>Ver CCDS</span>
                 </a>
 
                 <a href="#" class="card-servico" onclick="abrirAta(); return false;">
                     <div class="icone">📋</div>
-                    <span>Enviar ata</span>
+                    <span>Visualizar Ata</span>
                 </a>
 
-                <a href="#" class="card-servico" onclick="abrirSolicitacao(); return false;">
+                <a href="#" class="card-servico" onclick="abrirVerSolicitacoes(); return false;">
                     <div class="icone">📞</div>
-                    <span>Nova solicitação</span>
+                    <span>Ver solicitações</span>
                 </a>
+
                 <a href="#" class="card-servico" onclick="abrirCadastro(); return false;">
                     <div class="icone">📲</div>
-                    <span>Cadastro de membros</span>
+                    <span>Enviar Link Cadastro </span>
                 </a>
             </div>
         </div>
@@ -104,31 +119,14 @@
                 <h3>Nova Solicitação</h3>
                 <span class="close-btn" onclick="fecharSolicitacao()">&times;</span>
             </div>
-
             <div class="modal-body">
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     <div class="solicitação">
                         <label>Nome do solicitante</label><br>
                         <input type="text" placeholder="Digite seu nome">
                     </div>
-                    <div class="solicitação">
-                        <label>Data de Nascimento</label><br>
-                        <input type="date">
-                    </div>
-                    <div class="solicitação">
-                        <label>Assunto</label><br>
-                        <input type="text" placeholder="Digite o assunto">
-                    </div>
-                    <div class="solicitação">
-                        <label>Descrição</label><br>
-                        <textarea placeholder="Descreva sua solicitação"></textarea>
-                    </div>
-                    <div class="solicitação">
-                        <label>Anexar Documento</label><br>
-                        <input type="file" accept=".pdf,.doc,.docx" class="input-arquivo">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px;">
-                        <button class="botao-mais-membros" onclick="alertaSolicitacao()">Enviar Solicitação</button>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="botao-mais-membros" onclick="alertaSolicitacao()">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -138,10 +136,24 @@
     <div id="modalMembros" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Membros do Conselho</h3>
+                <h3>Membros do Conselho (CCDS)</h3>
                 <span class="close-btn" onclick="fecharModal()">&times;</span>
             </div>
             <div class="modal-body">
+                <div class="filtros-container">
+                    <div class="solicitação">
+                        <label>Selecione o Bairro:</label>
+                        <select id="filtro-bairro" onchange="carregarOpcoesCCDS()">
+                            <option value="">-- Escolha o Bairro --</option>
+                        </select>
+                    </div>
+                    <div class="solicitação">
+                        <label>Selecione o CCDS:</label>
+                        <select id="filtro-ccds" onchange="listarMembrosNaTabela()" disabled>
+                            <option value="">-- Primeiro escolha o bairro --</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="tabela-scroll">
                     <table class="tabela-membros">
                         <thead>
@@ -151,89 +163,64 @@
                                 <th>Telefone</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="corpo-tabela">
                             <tr>
-                                <td>João da Silva</td>
-                                <td>Presidente</td>
-                                <td>(85) 99999-9999</td>
-                            </tr>
-                            <tr>
-                                <td>Maria Oliveira</td>
-                                <td>Secretária Geral</td>
-                                <td>(85) 98888-8888</td>
-                            </tr>
-                            <tr>
-                                <td>Carlos Santos</td>
-                                <td>Tesoureiro</td>
-                                <td>(85) 97777-7777</td>
-                            </tr>
-                            <tr>
-                                <td>Ana Costa</td>
-                                <td>Conselheira</td>
-                                <td>(85) 96666-6666</td>
-                            </tr>
-                            <tr>
-                                <td>Pedro Alves</td>
-                                <td>Suplente</td>
-                                <td>(85) 95555-5555</td>
-                            </tr>
-                            <tr>
-                                <td>Membro Extra 1</td>
-                                <td>Assessor</td>
-                                <td>(85) 94444-4444</td>
-                            </tr>
-                            <tr>
-                                <td>Membro Extra 2</td>
-                                <td>Apoio</td>
-                                <td>(85) 93333-3333</td>
-                            </tr>
-                            <tr>
-                                <td>Membro Extra 3</td>
-                                <td>Estagiário</td>
-                                <td>(85) 92222-2222</td>
+                                <td colspan="3" style="text-align:center; color:#777;">
+                                    Selecione um Bairro e um CCDS acima para ver os membros.
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                </div> 
+                <div class="acoes-modal">
+                    <button class="botao-secundario" onclick="fecharModal()">Voltar</button>
+                    <button class="botao-mais-membros" onclick="abrirCadastro()">Cadastrar Novo Membro</button>
                 </div>
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="botao-mais-membros" onclick="alertaMembros()">Carregar mais membros </button>
-                </div>
-            </div>
+            </div>    
         </div>
     </div>
 
     <div id="Enviar-Ata" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Envio de Ata</h3>
+                <h3>Gerenciar Atas do CCDS</h3>
                 <span class="close-btn" onclick="fecharAta()">&times;</span>
             </div>
-
             <div class="modal-body">
-                <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="filtros-container">
                     <div class="solicitação">
-                        <label>Nome da ata</label><br>
-                        <input type="text" placeholder="Digite o nome da ata">
-                    </div>
-                    <div class="solicitação">
-                        <label>Data</label><br>
-                        <input type="date">
+                        <label>Bairro:</label>
+                        <select id="filtro-bairro-ata" onchange="carregarOpcoesCCDSAtas()">
+                            <option value="">-- Escolha o Bairro --</option>
+                        </select>
                     </div>
                     <div class="solicitação">
-                        <label>Pauta/Assunto</label><br>
-                        <input type="text" placeholder="Digite a pauta/Assunto">
+                        <label>CCDS:</label>
+                        <select id="filtro-ccds-ata" onchange="listarAtas()" disabled>
+                            <option value="">-- Primeiro escolha o bairro --</option>
+                        </select>
                     </div>
-                    <div class="solicitação">
-                        <label>Descrição</label><br>
-                        <textarea placeholder="Descreva sua solicitação"></textarea>
-                    </div>
-                    <div class="solicitação">
-                        <label>Anexar Documento</label><br>
-                        <input type="file" accept=".pdf,.doc,.docx" class="input-arquivo">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px;">
-                        <button class="botao-mais-membros" onclick="alertaAta()">Enviar Ata</button>
-                    </div>
+                </div>
+                <div class="tabela-scroll">
+                    <table class="tabela-membros">
+                        <thead>
+                            <tr>
+                                <th>Data / Assunto</th>
+                                <th>Status</th>
+                                <th style="text-align: center;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-atas-corpo">
+                            <tr>
+                                <td colspan="3" style="text-align:center; color:#777; padding: 20px;">
+                                    Selecione um CCDS acima para carregar as atas.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="botao-mais-membros" onclick="alert('Funcionalidade de upload abriria aqui')">Nova Ata</button>
                 </div>
             </div>
         </div>
@@ -242,178 +229,92 @@
     <div id="modalCadastro" class="modal-overlay">
         <div class="modal-content grande">
             <div class="modal-header">
-                <h3>Cadastrar Novo Usuário</h3>
+                <h3>Link de Cadastro de novo membro</h3>
                 <span class="close-btn" onclick="fecharCadastro()">&times;</span>
             </div>
-
-            <div class="modal-body scroll-form">
-                <form>
-                    <h4 class="titulo-secao">Dados Pessoais</h4>
-                    <div class="form-grid">
-
-                        <div class="solicitação full-width">
-                            <label>Nome Completo *</label>
-                            <input type="text" placeholder="Nome completo">
-                        </div>
-
-                        <div class="solicitação full-width">
-                            <label>Nome Social</label>
-                            <input type="text" placeholder="Nome social (se houver)">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>RG</label>
-                            <input type="text" placeholder="00.000.000-0">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>CPF</label>
-                            <input type="text" placeholder="000.000.000-00">
-                        </div>
-
-                        <div class="solicitação full-width">
-                            <label>E-mail</label>
-                            <input type="email" placeholder="exemplo@email.com">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Telefone *</label>
-                            <input type="tel" placeholder="(85) 0000-0000">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>WhatsApp</label>
-                            <input type="tel" placeholder="(85) 90000-0000">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Data de Nascimento *</label>
-                            <input type="date">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Gênero *</label>
-                            <select>
-                                <option value="">Selecione</option>
-                                <option>Homem Cis</option>
-                                <option>Homem Trans</option>
-                                <option>Mulher Cis</option>
-                                <option>Mulher Trans/Travesti</option>
-                                <option>Não-Binárie</option>
-                                <option>Prefiro não Falar</option>
-                                <option>Outros</option>
-                            </select>
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Identifica-se como LGBTQIA+? *</label>
-                            <select>
-                                <option value="">Selecione</option>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Cor/Raça *</label>
-                            <select>
-                                <option value="">Selecione</option>
-                                <option>Amarelo</option>
-                                <option>Branco</option>
-                                <option>Pardo</option>
-                                <option>Preto</option>
-                                <option>Indígena</option>
-                                <option>Outros</option>
-                            </select>
-                        </div>
-                        <div class="solicitação">
-                            <label>Estado Civil</label>
-                            <select>
-                                <option value="">Selecione</option>
-                                <option>Solteiro(a)</option>
-                                <option>Casado(a)</option>
-                                <option>Divorciado(a)</option>
-                                <option>Viúvo(a)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <h4 class="titulo-secao">Endereço</h4>
-                    <div class="form-grid">
-                        <div class="solicitação">
-                            <label>CEP</label>
-                            <input type="text" id="cep" placeholder="00000-000" maxlength="9" onblur="pesquisarCep()">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Estado</label>
-                            <input type="text" id="uf" placeholder="CE">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Cidade</label>
-                            <input type="text" id="cidade" placeholder="Nome da Cidade">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Bairro</label>
-                            <input type="text" id="bairro">
-                        </div>
-
-                        <div class="solicitação full-width">
-                            <label>Rua / Logradouro</label>
-                            <input type="text" id="rua">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Número</label>
-                            <input type="text" id="numero">
-                        </div>
-
-                        <div class="solicitação">
-                            <label>Complemento</label>
-                            <input type="text" id="complemento">
-                        </div>
-
-                        <div class="solicitação full-width">
-                            <label>Comunidade (Opcional)</label>
-                            <input type="text">
-                        </div>
-                    </div>
-
-                    <h4 class="titulo-secao">Educação e Trabalho</h4>
-                    <div class="form-grid">
-                        <div class="solicitação">
-                            <label>Frequenta escola? *</label>
-                            <select>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
-                        </div>
-                        <div class="solicitação">
-                            <label>Ocupação Formal? *</label>
-                            <select>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 25px; margin-bottom: 20px;">
-                        <button type="button" class="botao-mais-membros" onclick="salvarCadastro()">Cadastrar
-                            Usuário</button>
-                    </div>
-                </form>
+            <div class="modal-body">
+                <p>Funcionalidade de envio de link de cadastro para novos membros do CCDS.</p>
+                <p>Ao clicar no botão abaixo, um link de cadastro seria enviado para o e-mail do solicitante.</p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="botao-mais-membros" onclick="alert('Link de cadastro enviado!')">Enviar Link de Cadastro</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="footer">
-        <span>© 2024 Governo do Ceará - Todos os direitos reservados.</span>
+    <div id="modalVerSolicitacoes" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Solicitações da População</h3>
+                <span class="close-btn" onclick="fecharVerSolicitacoes()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="filtros-container">
+                    <div class="solicitação full-width">
+                        <label>Filtrar por Status:</label>
+                        <select id="filtro-status-solicitacao" onchange="listarSolicitacoes()">
+                            <option value="todos">Todas</option>
+                            <option value="Pendente">Pendentes</option>
+                            <option value="Em Andamento">Em Andamento</option>
+                            <option value="Concluído">Concluídas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="tabela-scroll">
+                    <table class="tabela-membros">
+                        <thead>
+                            <tr>
+                                <th>Solicitante / Data</th>
+                                <th>Assunto</th>
+                                <th>Status</th>
+                                <th style="text-align: center;">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-solicitacoes-corpo">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="botao-secundario" onclick="fecharVerSolicitacoes()">Voltar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <div style="border-top: none;" class="Rodape">
+        <div class="linkRodape">
+            <a href="https://www.sspds.ce.gov.br/">   
+            <h2>SSPDS.CE.GOV.BR</h2>
+            </a>
+        </div>
+        <div>
+            <p>SECRETARIA DE SEGURANÇA PÚBLICA E DEFESA SOCIAL</p>
+            <br>
+            <P>
+            Centro Integrado de Segurança Pública - Cisp
+            <br>
+                Av. Aguanambi, S/N - Aeroporto
+            <br>
+                Fortaleza, CE - CEP: 60415-390
+            <br>
+                Telefone: (85) 3194-7420
+            </P>
+        </div>
+         <div>
+            <h2>Horário de Atendimento</h2>
+            <p>08 às 17 HORAS</p>
+         </div>
+         <div>
+            <p> © 2017 - 2026 - governo do estado do ceará</p>
+            <br>
+            <p>Todos os direitos reservados</p>
+         </div>
+    </div>
+
+   <script src="script.js"></script>
 
 </body>
-
 </html>

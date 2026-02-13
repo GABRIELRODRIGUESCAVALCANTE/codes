@@ -519,3 +519,101 @@ body {
         grid-column: span 1;
     }
 }
+/* --- ESTILOS DOS FILTROS DO MODAL MEMBROS --- */
+.filtros-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em 2 colunas */
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* Em telas pequenas, um embaixo do outro */
+@media (max-width: 600px) {
+    .filtros-container {
+        grid-template-columns: 1fr;
+    }
+}
+.acoes-modal {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px;
+}
+
+/* Estilo para o botão "Voltar" (Cinza) */
+.botao-secundario {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.botao-secundario:hover {
+    background-color:var(--cor-verde-inst);
+    color: var(--cor-branco);
+    transform: translateY(-2px);
+}
+.btn-acao {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    margin: 0 2px; /* Espaço entre eles */
+    transition: opacity 0.2s;
+}
+
+.btn-acao:hover {
+    opacity: 0.8;
+}
+
+/* Cores Específicas */
+.btn-visualizar { background-color: #3498db; } /* Azul */
+.btn-aprovar    { background-color: #27ae60; } /* Verde */
+.btn-reprovar   { background-color: #e74c3c; } /* Vermelho */
+
+/* Pequeno ajuste na coluna de ações da tabela */
+.tabela-membros td:last-child {
+    white-space: nowrap; /* Não quebra linha */
+}
+.Rodape{
+    background-color: var(--cor-branco);
+    grid-column: span 5 / span 5;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #777;
+   
+}
+.linkRodape {
+    color: var(--cor-verde-inst);
+    margin: 0 10px;
+    font-weight: bold;
+}
+/* Adicione isto ao seu CSS */
+.linkRodape a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: inherit; /* Garante que a cor seja a que você definiu no pai */
+}
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.badge-pendente { background-color: #e74c3c; }     
+.badge-andamento { background-color: #f39c12; }     
+.badge-concluido { background-color: #27ae60; }    
