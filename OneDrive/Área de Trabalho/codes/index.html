@@ -6,20 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout Governo do Ceará</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* CSS EXTRA PARA AS ETIQUETAS DE STATUS */
-        .badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
-        }
-        .badge-pendente { background-color: #e74c3c; }      /* Vermelho */
-        .badge-andamento { background-color: #f39c12; }     /* Laranja */
-        .badge-concluido { background-color: #27ae60; }     /* Verde */
-    </style>
+
 </head>
 
 <body>
@@ -107,7 +94,7 @@
                     <span>Ver solicitações</span>
                 </a>
 
-                <a href="#" class="card-servico" onclick="abrirCadastro(); return false;">
+                <a href="#" class="card-servico" onclick="abrirGerarLink(); return false;">
                     <div class="icone">📲</div>
                     <span>Enviar Link Cadastro </span>
                 </a>
@@ -231,17 +218,108 @@
     <div id="modalCadastro" class="modal-overlay">
         <div class="modal-content grande">
             <div class="modal-header">
-                <h3>Link de Cadastro de novo membro</h3>
+                <h3>Cadastrar Novo Membro</h3>
                 <span class="close-btn" onclick="fecharCadastro()">&times;</span>
             </div>
-            <div class="modal-body">
-                <p>Funcionalidade de envio de link de cadastro para novos membros do CCDS.</p>
-                <p>Ao clicar no botão abaixo, um link de cadastro seria enviado para o e-mail do solicitante.</p>
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="botao-mais-membros" onclick="alert('Link de cadastro enviado!')">Enviar Link de Cadastro</button>
+            
+            <div class="modal-body scroll-form">
+                <form onsubmit="event.preventDefault(); salvarCadastro();">
+                    
+                    <h4 class="titulo-secao">Dados Pessoais</h4>
+                    <div class="form-grid">
+                        
+                        <div class="solicitação full-width">
+                            <label>Nome Completo *</label>
+                            <input type="text" placeholder="Nome completo" required>
+                        </div>
+
+                        <div class="solicitação full-width">
+                            <label>Nome Social</label>
+                            <input type="text" placeholder="Nome social (se houver)">
+                        </div>
+
+                        <div class="solicitação">
+                            <label>RG</label>
+                            <input type="text" placeholder="00.000.000-0">
+                        </div>
+
+                        <div class="solicitação">
+                            <label>CPF</label>
+                            <input type="text" placeholder="000.000.000-00">
+                        </div>
+
+                        <div class="solicitação full-width">
+                            <label>E-mail</label>
+                            <input type="email" placeholder="exemplo@email.com">
+                        </div>
+
+                        <div class="solicitação">
+                            <label>Telefone *</label>
+                            <input type="tel" placeholder="(85) 0000-0000">
+                        </div>
+
+                        <div class="solicitação">
+                            <label>Data de Nascimento</label>
+                            <input type="date">
+                        </div>
+
+                        <div class="solicitação">
+                            <label>Gênero</label>
+                            <select>
+                                <option value="">Selecione</option>
+                                <option>Masculino</option>
+                                <option>Feminino</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
                 </div>
-            </div>
+
+                <h4 class="titulo-secao">Endereço</h4>
+                <div class="form-grid">
+                    <div class="solicitação">
+                        <label>CEP *</label>
+                        <input type="text" id="cep" placeholder="00000-000" maxlength="9" onblur="pesquisarCep()">
+                    </div>
+                    
+                    <div class="solicitação">
+                        <label>Estado</label>
+                        <input type="text" id="uf">
+                    </div>
+
+                    <div class="solicitação">
+                        <label>Cidade</label>
+                        <input type="text" id="cidade">
+                    </div>
+
+                    <div class="solicitação">
+                        <label>Bairro</label>
+                        <input type="text" id="bairro">
+                    </div>
+
+                    <div class="solicitação full-width">
+                        <label>Rua / Logradouro</label>
+                        <input type="text" id="rua">
+                    </div>
+
+                    <div class="solicitação">
+                        <label>Número</label>
+                        <input type="text" id="numero">
+                    </div>
+                    
+                    <div class="solicitação">
+                        <label>Complemento</label>
+                        <input type="text" id="complemento">
+                    </div>
+                </div>
+
+                <div class="acoes-modal" style="margin-top: 30px;">
+                    <button type="button" class="botao-secundario" onclick="fecharCadastro()">Cancelar</button>
+                    <button type="submit" class="botao-mais-membros">Salvar Cadastro</button>
+                </div>
+
+            </form>
         </div>
+    </div>
     </div>
 
     <div id="modalVerSolicitacoes" class="modal-overlay">
@@ -281,6 +359,36 @@
 
                 <div style="text-align: center; margin-top: 20px;">
                     <button class="botao-secundario" onclick="fecharVerSolicitacoes()">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalGerarLink" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gerar Convite</h3>
+                <span class="close-btn" onclick="fecharGerarLink()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div style="text-align: center; padding: 10px;">
+                    <p style="color: #666; margin-bottom: 20px;">
+                        Gere um link exclusivo para enviar ao novo membro.<br>
+                        Este link expirará em 24 horas.
+                    </p>
+
+                    <div class="input-group-link">
+                        <input type="text" id="campo-link" placeholder="Clique em 'Gerar Link' abaixo..." readonly>
+                        <button id="btn-copiar" class="btn-copiar" onclick="copiarLink()" disabled>
+                            📋 Copiar
+                        </button>
+                    </div>
+
+                    <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
+                        <button class="botao-secundario" onclick="fecharGerarLink()">Voltar</button>
+                        <button class="botao-mais-membros" onclick="gerarLinkUnico()">🔄 Gerar Link</button>
+                    </div>
                 </div>
             </div>
         </div>

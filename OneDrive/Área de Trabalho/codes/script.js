@@ -1,4 +1,4 @@
-/* --- script.js ATUALIZADO E LIMPO --- */
+/* --- script.js COMPLETO (COM SALVAR CADASTRO) --- */
 
 /* =================================================================================
    1. BANCOS DE DADOS FICTÍCIOS
@@ -53,7 +53,7 @@ const bancoSolicitacoes = [
 
 // Função mestre que fecha tudo antes de abrir uma nova
 function fecharTodasAsJanelas() {
-    const ids = ["modalMembros", "nova-solicitacao", "Enviar-Ata", "modalCadastro", "modalVerSolicitacoes"];
+    const ids = ["modalMembros", "nova-solicitacao", "Enviar-Ata", "modalCadastro", "modalVerSolicitacoes","modalGerarLink"];
     ids.forEach(id => {
         const div = document.getElementById(id);
         if(div) div.style.display = "none";
@@ -61,6 +61,10 @@ function fecharTodasAsJanelas() {
 }
 
 // --- Funções de Abrir ---
+function abrirGerarLink() {
+    fecharTodasAsJanelas();
+    document.getElementById("modalGerarLink").style.display = "flex";
+}
 
 function abrirModal() {
     fecharTodasAsJanelas();
@@ -100,16 +104,27 @@ function abrirVerSolicitacoes() {
 }
 
 // --- Funções de Fechar (Individuais) ---
+function fecharGerarLink() {
+    document.getElementById("modalGerarLink").style.display = "none";
+}
 function fecharModal() { document.getElementById("modalMembros").style.display = "none"; }
 function fecharSolicitacao() { document.getElementById("nova-solicitacao").style.display = "none"; }
 function fecharAta() { document.getElementById("Enviar-Ata").style.display = "none"; }
 function fecharCadastro() { document.getElementById("modalCadastro").style.display = "none"; }
 function fecharVerSolicitacoes() { document.getElementById("modalVerSolicitacoes").style.display = "none"; }
 
-// --- Alertas ---
+// --- Alertas e Ações de Salvar ---
+
 function alertaSolicitacao() {
     alert("Solicitação enviada com sucesso!");
     fecharSolicitacao();
+}
+
+// AQUI ESTÁ A FUNÇÃO QUE FALTAVA:
+function salvarCadastro() {
+    alert("Usuário cadastrado com sucesso!");
+    fecharCadastro(); // Fecha o formulário
+    abrirModal();     // Volta para a lista de membros (fluxo correto)
 }
 
 
@@ -347,4 +362,32 @@ window.onclick = function(event) {
     if (event.target.classList.contains('modal-overlay')) {
         event.target.style.display = "none";
     }
+}
+/* =================================================================================
+   8- gerar link de acesso (modalGerarLink)
+   ================================================================================= */
+   function gerarLinkUnico() {
+    const token = Math.random().toString(36).substring(2, 10).toUpperCase();
+    const link = `https://sspds.ce.gov.br/cadastro?token=${token}`;
+    
+    const campo = document.getElementById("campo-link");
+    const btn = document.getElementById("btn-copiar");
+    
+    campo.value = "Gerando...";
+    setTimeout(() => {
+        campo.value = link;
+        btn.disabled = false;
+        btn.style.backgroundColor = "#e0f7fa";
+    }, 500);
+}
+
+function copiarLink() {
+    const campo = document.getElementById("campo-link");
+    const btn = document.getElementById("btn-copiar");
+    
+    campo.select();
+    navigator.clipboard.writeText(campo.value);
+    
+    btn.innerText = "✅ Copiado!";
+    setTimeout(() => { btn.innerText = "📋 Copiar"; }, 2000);
 }
