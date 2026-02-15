@@ -47,28 +47,22 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     height: auto;
-    
     border-radius: 6px;
     overflow: hidden; 
-    
-    /* MUDANÇA: Se quiseres remover a sombra cinza de baixo, apaga a linha do box-shadow ou coloca 'none' */
     box-shadow: none; 
-    /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); <--- ESTA ERA A SOMBRA ANTIGA */
-    
     background-color: white; 
 }
 
 /* --- CABEÇALHO (Parte Verde com Texto) --- */
 .div1 {
-    background-color: var(--cor-verde-inst);
+   background-color: var(--cor-verde-inst);
     display: flex;
     align-items: center; 
-    justify-content: center;
+    justify-content: center; /* Centraliza tudo */
+    gap: 30px; /* IMPORTANTE: Dá espaço entre as duas logos */
     
-    /* --- IMPORTANTE --- */
-    flex: 0 0 auto; /* Impede de crescer */
-    height: auto;   /* Altura automática */
-    
+    flex: 0 0 auto;
+    height: auto;
     padding: 15px 0 10px 0; 
     width: 100%;
 }
@@ -103,6 +97,12 @@ body {
     max-height: 70px; /* Tamanho controlado */
     width: auto;
     max-width: 90%;
+}
+.logo-codes {
+    max-height: 70px; /* Mesma altura da outra para ficar bonito */
+    width: auto;      /* Largura automática */
+    max-width: 45%;   /* Garante que cabe na tela */
+    border-radius: 50%;
 }
 
 /* --- LATERAL / FILTROS (.div2) --- */
@@ -586,34 +586,126 @@ body {
 .tabela-membros td:last-child {
     white-space: nowrap; /* Não quebra linha */
 }
-.Rodape{
-    background-color: var(--cor-branco);
-    grid-column: span 5 / span 5;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.9rem;
-    color: #777;
-   
-}
-.linkRodape {
-    color: var(--cor-verde-inst);
-    margin: 0 10px;
-    font-weight: bold;
-}
-/* Adicione isto ao seu CSS */
-.linkRodape a {
-    text-decoration: none; /* Remove o sublinhado */
-    color: inherit; /* Garante que a cor seja a que você definiu no pai */
-}
-.badge {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
+/* --- NOVO RODAPÉ COMPACTO --- */
+
+.Rodape {
+    /* Ocupa a largura total e fixa no fundo do grid pai se necessário */
+    grid-column: span 5 / span 5; 
+    
+    background-color: var(--cor-branco, #ffffff); /* Usa sua var ou branco */
+    border-top: 4px solid var(--cor-verde-inst, #008241); /* Borda verde institucional */
+    padding: 20px 40px; /* Menos altura, mais espaço lateral */
+    font-size: 0.85rem; /* Fonte levemente menor para rodapé */
+    color: #555;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05); /* Sombra sutil pra cima */
 }
 
-.badge-pendente { background-color: #e74c3c; }     
-.badge-andamento { background-color: #f39c12; }     
-.badge-concluido { background-color: #27ae60; }    
+/* Container que segura as 3 colunas */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 colunas iguais */
+    gap: 20px;
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo genérico das colunas */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* --- COLUNA 1: Esquerda (Identidade) --- */
+.footer-col.esquerda {
+    text-align: left;
+    border-right: 1px solid #eee; /* Linha divisória sutil */
+}
+
+.footer-logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cor-verde-inst, #008241);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.orgao-nome {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #777;
+    margin: 0;
+}
+
+/* --- COLUNA 2: Centro (Endereço) --- */
+.footer-col.centro {
+    text-align: center;
+    border-right: 1px solid #eee;
+    padding: 0 10px;
+}
+
+.footer-col.centro h3 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: var(--cor-verde-inst, #008241);
+}
+
+.footer-col.centro p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* --- COLUNA 3: Direita (Horário e Copy) --- */
+.footer-col.direita {
+    text-align: right;
+    justify-content: center;
+}
+
+.horario-box {
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+    align-self: flex-end; /* Encosta na direita */
+}
+
+.horario-box span {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.horario-box strong {
+    color: var(--cor-verde-inst, #008241);
+}
+
+.copyright p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #999;
+}
+
+/* --- RESPONSIVIDADE (Celular) --- */
+/* Quando a tela for pequena, volta a empilhar para não quebrar */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* 1 coluna só */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-col.esquerda, 
+    .footer-col.centro, 
+    .footer-col.direita {
+        text-align: center;
+        border-right: none; /* Tira as linhas divisórias */
+        align-items: center;
+    }
+    
+    .horario-box {
+        align-self: center;
+    }
+}
