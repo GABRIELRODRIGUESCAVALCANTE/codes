@@ -1,0 +1,758 @@
+:root {
+    --cor-verde-inst: rgb(0, 130, 65);    
+    --cor-amarelo-inst: rgb(255, 200, 5);
+    --cor-verde-claro: #26a737; 
+    --cor-cinza-fundo: #f0f2f5; 
+    --cor-branco: #ffffff;
+    --cor-texto: #333333;
+}
+
+/* 2. Reset Básico */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-cinza-fundo);
+    margin: 0;
+    padding: 0;
+}
+
+/* 3. Estrutura do Grid (Layout Principal) */
+.parent {
+  display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    
+    /* --- MUDANÇA AQUI --- */
+    /* Use 'auto' na primeira linha. Isso faz ela encolher até caber o conteúdo. */
+    grid-template-rows: auto repeat(4, 1fr); 
+    
+    gap: 15px;
+    height: 100vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Estilo base para divs genéricas */
+.parent > div {
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 4. Áreas Específicas */
+
+/* --- NOVO: CONTAINER DO CABEÇALHO --- */
+/* Este bloco segura a Div1 e a Logo juntas no topo */
+.header-container {
+    grid-column: span 5 / span 5;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    border-radius: 6px;
+    overflow: hidden; 
+    box-shadow: none; 
+    background-color: white; 
+}
+
+/* --- CABEÇALHO (Parte Verde com Texto) --- */
+.div1 {
+   background-color: var(--cor-verde-inst);
+    display: flex;
+    align-items: center; 
+    justify-content: center; /* Centraliza tudo */
+    gap: 30px; /* IMPORTANTE: Dá espaço entre as duas logos */
+    
+    flex: 0 0 auto;
+    height: auto;
+    padding: 15px 0 10px 0; 
+    width: 100%;
+}
+
+.div1 h1 {
+    margin: 0;
+}
+
+/* --- A BARRA DE LOGO (SVG) --- */
+.logo {
+   width: 100%;
+    display: block;
+    line-height: 0;
+    
+    /* MUDANÇA AQUI: Adicione estas 3 linhas */
+    margin-top: -1px;    /* Já tinhas este (cola em cima) */
+    margin-bottom: -1px; /* NOVO: Cola em baixo (remove linha do fundo) */
+    flex-shrink: 0;
+}
+
+/* ADICIONA ISTO PARA GARANTIR QUE O DESENHO APARECE */
+.logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    min-height: 15px; /* Força uma altura mínima caso ele esteja a tentar sumir */
+}
+/* --- CONTROLE DA IMAGEM DA LOGO --- */
+.logo-sspds {
+    max-height: 70px; /* Tamanho controlado */
+    width: auto;
+    max-width: 90%;
+}
+.logo-codes {
+    max-height: 70px; /* Mesma altura da outra para ficar bonito */
+    width: auto;      /* Largura automática */
+    max-width: 45%;   /* Garante que cabe na tela */
+    border-radius: 50%;
+}
+
+/* --- LATERAL / FILTROS (.div2) --- */
+.div2 {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+    background-color: var(--cor-branco);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-radius: 8px;
+    border-top: 4px solid var(--cor-verde-inst);
+}
+.div2 .acessibilidade {
+    width: 100%; /* Força a largura total */
+    box-sizing: border-box;
+}
+
+/* 2. Garante que o botão (link) estique dentro do container */
+.div2 .card-servico {
+    width: 40%; /* Mude de 40% para 100% para encher a caixa */
+    box-sizing: border-box;
+    /* Adicione isto para garantir que o texto não quebre feio */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container que segura o ícone e o texto */
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* O Elemento Gráfico (Quadrado Tech) */
+.brand-symbol {
+    width: 12px;
+    height: 50px;
+    background-color: var(--cor-amarelo-inst);
+    border-radius: 2px;
+}
+
+/* Bloco de Texto */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.text-primary {
+    font-size: 3.0rem;
+    font-weight: 800;
+    color: var(--cor-verde-inst);
+    line-height: 0.9;
+    letter-spacing: -1px;
+}
+
+.text-secondary {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.acessibilidade {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 20px;
+}
+
+/* --- CONTEÚDO PRINCIPAL / SERVIÇOS (.div3) --- */
+.div3 {
+    grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    background-color: var(--cor-branco);
+    color: var(--cor-texto);
+    
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+}
+
+.div3 h2 {
+    color: var(--cor-verde-inst);
+    border-bottom: 2px solid var(--cor-amarelo-inst);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* --- ESTILO DOS CARDS --- */
+.grid-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+    gap: 20px;
+    width: 100%;
+}
+
+.card-servico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    
+    text-decoration: none;
+    color: var(--cor-verde-inst);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-bottom: 4px solid var(--cor-verde-inst);
+}
+
+.card-servico .icone {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ícone SVG herda cor atual */
+.card-servico .icone svg {
+    fill: currentColor; 
+}
+
+.card-servico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 130, 65, 0.2);
+    background-color: var(--cor-branco);
+    border-bottom-color: var(--cor-amarelo-inst);
+}
+.footer {
+    grid-column: span 5 / span 5;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+.modal-overlay {
+    display: none; /* Começa escondido! */
+    position: fixed; 
+    z-index: 2000; /* Fica na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Preto transparente */
+    
+    /* Centraliza a caixa branca no meio da tela */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px); /* Desfoque bonito no fundo */
+}
+
+/* A Caixa Branca (Conteúdo) */
+.modal-content {
+    background-color: var(--cor-branco);
+    width: 90%;
+    max-width: 600px; /* Largura máxima */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    overflow: hidden; /* Para o cabeçalho não sair das bordas */
+    animation: aparecer 0.3s ease; /* Efeito de entrada */
+    
+}
+
+/* Animação suave */
+@keyframes aparecer {
+    from {transform: translateY(-20px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+    background-color: var(--cor-verde-inst);
+    color: var(--cor-branco);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid transparent;
+    border-image: linear-gradient(to right, var(--cor-verde-inst), var(--cor-amarelo-inst));
+    border-image-slice: 1;
+}
+.botao-mais-membros {
+    background: linear-gradient(to right, #e4a500, #c48b00);
+    border: none;
+    color: var(--cor-branco);
+    padding: 12px 24px;       /* Ajustei o padding lateral para ficar mais botão */
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.botao-mais-membros:hover {
+    transform: translateY(-2px); /* Sobe um pouquinho */
+    box-shadow: 0 4px 8px rgba(196, 139, 0, 0.4); /* Sombra amarelada */
+    background: linear-gradient(to right, #d19500, #b07d00);
+}
+.modal-header h3 {
+    margin: 0;
+}
+
+/* Botão de Fechar (X) */
+.close-btn {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: var(--cor-amarelo-inst);
+}
+
+.modal-body {
+    padding: 20px;
+}
+.tabela-scroll {
+    /* Define a altura máxima da lista */
+    max-height: 250px; 
+    /* Se passar da altura, cria a barra de rolagem vertical */
+    overflow-y: auto; 
+    /* Borda suave para delimitar a área */
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+/* --- ESTILO DA TABELA DE MEMBROS --- */
+.tabela-membros {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-membros th, .tabela-membros td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabela-membros th {
+    position: sticky;
+    top: 0;
+    
+    /* O SEGREDO: Fundo sólido para tapar o texto que sobe */
+    background-color: #f2f2f2; /* Cinza claro (ou usa var(--cor-branco) se preferires) */
+    
+    /* Garante que o cabeçalho fica na camada de cima */
+    z-index: 10; 
+    
+    /* Sombra suave para separar o cabeçalho da lista */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.tabela-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* O fundo por onde a barra corre */
+.tabela-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+/* A barra em si (o "polegar") */
+.tabela-scroll::-webkit-scrollbar-thumb {
+    background: #ccc; /* Cor cinza padrão */
+    border-radius: 4px;
+}
+
+/* Quando passa o mouse na barra */
+.tabela-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-verde-inst); /* Fica VERDE ao interagir */
+}
+
+/* Efeito Zebrado na tabela */
+.tabela-membros tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-membros tr:hover {
+    background-color: #f1f1f1;
+}
+/* 1. A Caixa geral (Onde fica o nome do arquivo) */
+.input-arquivo {
+    width: 100%;
+    padding: 8px; /* Espaço interno */
+    margin-top: 5px;
+    background-color: #f8f9fa; /* Fundo cinza claro igual aos outros inputs */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+}
+
+/* 2. O Botão Interno ("Escolher arquivo") */
+.input-arquivo::file-selector-button {
+    background-color: var(--cor-verde-inst); /* Verde do Governo */
+    color: white;
+    
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 15px; /* Afasta o texto do nome do arquivo */
+    
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 3. Efeito Hover no Botão Interno */
+.input-arquivo::file-selector-button:hover {
+    background-color: var(--cor-verde-claro); /* Fica amarelo ao passar o mouse */
+    color: var(--cor-branco);
+}
+.solocitação {
+    border: 1px solid #e0e0e0; 
+    border-radius: 6px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    align-content:center;
+    box-shadow: 0 6px 8px rgba(97, 230, 104, 0.1);
+}
+.solicitação label {
+    font-weight: 600;
+    color: black
+}
+
+.solicitação input, 
+.solicitação textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc; 
+    border-radius: 15px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.solicitação input:focus, 
+.solicitação textarea:focus {
+    outline: none;
+    border-color: var(--cor-verde-inst);
+    box-shadow: 0 0 8px rgba(0, 130, 65, 0.3);
+}
+/* --- ESTILO DO SELECT (Para ficar igual ao Input) --- */
+.solicitação select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px; /* Mesmo arredondamento dos inputs */
+    box-sizing: border-box;
+    font-family: inherit;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.solicitação select:focus {
+    outline: none;
+    border-color: var(--cor-verde-inst);
+    box-shadow: 0 0 8px rgba(0, 130, 65, 0.3);
+}
+
+/* --- GRID DO FORMULÁRIO (2 Colunas) --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+    gap: 15px; /* Espaço entre os campos */
+}
+
+/* Classe para campos que devem ocupar a linha inteira (ex: Nome, Endereço) */
+.full-width {
+    grid-column: span 2; /* Ocupa as 2 colunas */
+}
+
+/* --- TÍTULOS DAS SEÇÕES --- */
+.titulo-secao {
+    color: var(--cor-verde-inst);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* --- BARRA DE ROLAGEM DENTRO DO MODAL --- */
+.scroll-form {
+    max-height: 70vh; /* Altura máxima de 70% da tela */
+    overflow-y: auto; /* Adiciona barra de rolagem se passar disso */
+    padding-right: 10px; /* Espaço para a barra não colar no input */
+}
+
+/* Responsividade para Celular (Vira 1 coluna só) */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Uma coluna apenas */
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+}
+/* --- ESTILOS DOS FILTROS DO MODAL MEMBROS --- */
+.filtros-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em 2 colunas */
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* Em telas pequenas, um embaixo do outro */
+@media (max-width: 600px) {
+    .filtros-container {
+        grid-template-columns: 1fr;
+    }
+}
+.acoes-modal {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px;
+}
+
+/* Estilo para o botão "Voltar" (Cinza) */
+.botao-secundario {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.botao-secundario:hover {
+    background-color:var(--cor-verde-inst);
+    color: var(--cor-branco);
+    transform: translateY(-2px);
+}
+.btn-acao {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    margin: 0 2px; /* Espaço entre eles */
+    transition: opacity 0.2s;
+}
+
+.btn-acao:hover {
+    opacity: 0.8;
+}
+
+/* Cores Específicas */
+.btn-visualizar { background-color: #3498db; } /* Azul */
+.btn-aprovar    { background-color: #27ae60; } /* Verde */
+.btn-reprovar   { background-color: #e74c3c; } /* Vermelho */
+
+/* Pequeno ajuste na coluna de ações da tabela */
+.tabela-membros td:last-child {
+    white-space: nowrap; /* Não quebra linha */
+}
+/* --- NOVO RODAPÉ COMPACTO --- */
+
+.Rodape {
+    /* Ocupa a largura total e fixa no fundo do grid pai se necessário */
+    grid-column: span 5 / span 5; 
+    
+    background-color: var(--cor-branco, #ffffff); /* Usa sua var ou branco */
+    border-top: 4px solid var(--cor-verde-inst, #008241); /* Borda verde institucional */
+    padding: 20px 40px; /* Menos altura, mais espaço lateral */
+    font-size: 0.85rem; /* Fonte levemente menor para rodapé */
+    color: #555;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05); /* Sombra sutil pra cima */
+}
+
+/* Container que segura as 3 colunas */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 colunas iguais */
+    gap: 20px;
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo genérico das colunas */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* --- COLUNA 1: Esquerda (Identidade) --- */
+.footer-col.esquerda {
+    text-align: left;
+    border-right: 1px solid #eee; /* Linha divisória sutil */
+}
+
+.footer-logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cor-verde-inst, #008241);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.orgao-nome {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #777;
+    margin: 0;
+}
+
+/* --- COLUNA 2: Centro (Endereço) --- */
+.footer-col.centro {
+    text-align: center;
+    border-right: 1px solid #eee;
+    padding: 0 10px;
+}
+
+.footer-col.centro h3 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: var(--cor-verde-inst, #008241);
+}
+
+.footer-col.centro p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* --- COLUNA 3: Direita (Horário e Copy) --- */
+.footer-col.direita {
+    text-align: right;
+    justify-content: center;
+}
+
+.horario-box {
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+    align-self: flex-end; /* Encosta na direita */
+}
+
+.horario-box span {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.horario-box strong {
+    color: var(--cor-verde-inst, #008241);
+}
+
+.copyright p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #999;
+}
+/* Garante que o formulário tenha barra de rolagem se for muito alto */
+.scroll-form {
+    max-height: 70vh; /* Altura máxima de 70% da tela */
+    overflow-y: auto; /* Cria rolagem vertical */
+    padding-right: 10px;
+}
+ .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+        .badge-pendente { background-color: #e74c3c; }      /* Vermelho */
+        .badge-andamento { background-color: #f39c12; }     /* Laranja */
+        .badge-concluido { background-color: #27ae60; }     /* Verde */
+
+/* --- RESPONSIVIDADE (Celular) --- */
+/* Quando a tela for pequena, volta a empilhar para não quebrar */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* 1 coluna só */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-col.esquerda, 
+    .footer-col.centro, 
+    .footer-col.direita {
+        text-align: center;
+        border-right: none; /* Tira as linhas divisórias */
+        align-items: center;
+    }
+    
+    .horario-box {
+        align-self: center;
+    }
+}
+/* --- ESTILO DO GERADOR DE LINKS --- */
+.input-group-link {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#campo-link {
+    flex-grow: 1;
+    border: none;
+    background-color: #f5f5f5;
+    padding: 12px;
+    color: #555;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+#campo-link:focus { outline: none; }
+
+.btn-copiar {
+    background-color: #eee;
+    border: none;
+    border-left: 1px solid #ccc;
+    padding: 0 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-copiar:hover:not(:disabled) { background-color: #ddd; }

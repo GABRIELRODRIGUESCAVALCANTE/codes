@@ -80,8 +80,6 @@ body {
     /* MUDANÇA AQUI: Adicione estas 3 linhas */
     margin-top: -1px;    /* Já tinhas este (cola em cima) */
     margin-bottom: -1px; /* NOVO: Cola em baixo (remove linha do fundo) */
-    vertical-align: bottom; /* NOVO: Remove o espaço "fantasma" de imagens */
-    
     flex-shrink: 0;
 }
 
